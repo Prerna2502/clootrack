@@ -14,9 +14,15 @@ function App() {
   useEffect(() => {
     dispatch(fetchData());
   },[]);
-  const callBarModal = (id) => {
-    if(barchart){
+  const callModal = (id) => {
+    let type = id.substring(0,3)
+    if(barchart && type === "Bar"){
       const item = barchart.find((val)=>val.id === id);
+      setData(item);
+      setShowModal(true)
+    }
+    else if(piechart && type === "Pie"){
+      const item = piechart.find((val)=>val.id === id);
       setData(item);
       setShowModal(true)
     }
@@ -26,12 +32,12 @@ function App() {
     <div className="App">
       <div>
       {barchart && barchart.map((val)=>{
-       return <BarChart elements={val.elements} callModal={callBarModal} id={val.id}/>
+       return <BarChart elements={val.elements} callModal={callModal} id={val.id}/>
      })}
      </div>
      <div>
      {piechart && piechart.map((val)=>{
-       return <PieChart elements={val.elements} callModal={callBarModal}/>
+       return <PieChart elements={val.elements} callModal={callModal} id={val.id}/>
      })}
      </div> 
      <UpdateModal showModal={showModal} setShowModal={setShowModal} data={data}/>

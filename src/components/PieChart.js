@@ -49,10 +49,10 @@ const createPieData = (elements) =>{
   ]
 }}
 
-export default function PieChart({elements,callModal}) {
+export default function PieChart({elements,id,callModal}) {
     const data = createPieData(elements);
     return (
-      <div>
+      <div onClick={()=>callModal(id)}>
         <Pie
           data={data}
           options={{

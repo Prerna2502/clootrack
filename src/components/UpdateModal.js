@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ReactModal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBarDataById } from "../actions/barAction";
+import { updatePieDataById } from "../actions/pieAction";
 
 export default function UpdateModal({showModal,setShowModal,data}) {
     const [elements, setElements] = useState([]);
@@ -21,20 +22,37 @@ export default function UpdateModal({showModal,setShowModal,data}) {
     }
     
     function saveModal () {
-        console.log(data.id);
-        const newData = barchart.map((val)=>{
-            if(val.id===data.id){
-                return {
-                    ...val,
-                    elements
+        console.log(data.type);
+        if(data.type === "Bar"){
+            const newData = barchart.map((val)=>{
+                if(val.id===data.id){
+                    return {
+                        ...val,
+                        elements
+                    }
                 }
-            }
-            return{
-                ...val
-            }
-        });
-        dispatch(updateBarDataById(newData));
-        setShowModal(false);
+                return{
+                    ...val
+                }
+            });
+            dispatch(updateBarDataById(newData));
+            setShowModal(false);
+        }
+        else if(data.type === "Pie"){
+            const newData = piechart.map((val)=>{
+                if(val.id===data.id){
+                    return {
+                        ...val,
+                        elements
+                    }
+                }
+                return{
+                    ...val
+                }
+            });
+            dispatch(updatePieDataById(newData));
+            setShowModal(false);
+        }
     }
     
     function handleChange (e,i) {
