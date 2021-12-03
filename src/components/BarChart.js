@@ -29,7 +29,7 @@ const createBarData = (elements) => {
   labels: elements,
   datasets: [
     {
-      label: 'Rainfall',
+      label:"Bar Chart",
       backgroundColor: 'rgba(75,192,192,1)',
       borderColor: 'rgba(0,0,0,1)',
       borderWidth: 2,
@@ -42,7 +42,7 @@ export default function BarChart({elements,id,callModal}) {
     console.log(elements);
     const data = createBarData(elements);
     return (
-      <div onClick={()=>callModal(id)}>
+      <div onClick={()=>callModal(id)} style={{width:'50vw', margin:'auto', marginTop:'100px', marginBottom:'100px'}}>
         <Bar
           data={data}
           options={{
@@ -57,6 +57,7 @@ export default function BarChart({elements,id,callModal}) {
             }
           }}
         />
+        <button onClick={()=>callModal(id)}>Update Me</button>
       </div>
     );
 }

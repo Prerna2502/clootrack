@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import ReactModal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBarDataById } from "../actions/barAction";
 import { updatePieDataById } from "../actions/pieAction";
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
 export default function UpdateModal({showModal,setShowModal,data}) {
     const [elements, setElements] = useState([]);
@@ -70,16 +73,24 @@ export default function UpdateModal({showModal,setShowModal,data}) {
 
       return (
         <div>
-          <ReactModal 
-             isOpen={showModal}
-             contentLabel="Minimal Modal Example"
-          >
-            <button onClick={handleCloseModal}>Close Modal</button>
-            {elements.map((val,i)=>{
-                return <input type="number" value={val} onChange={(e)=>handleChange(e,i)}/>
-            })}
-            <button onClick={saveModal}>Save Modal</button>
-          </ReactModal>
+            <Modal show={showModal} onHide={()=>setShowModal(false)} aria-labelledby="contained-modal-title-vcenter">
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    Click Save after changing the values:
+                    </Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="show-grid">
+                <Container>
+                    {elements.map((val,i)=>{
+                    return <div><Row><input type="number" value={val} onChange={(e)=>handleChange(e,i)}/></Row><br/></div>
+                    })}
+                </Container>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button onClick={saveModal}>Save</Button>
+                <Button onClick={handleCloseModal}>Close</Button>
+            </Modal.Footer>
+        </Modal>
         </div>
       );
   }

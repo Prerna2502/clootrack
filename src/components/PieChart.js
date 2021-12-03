@@ -52,7 +52,7 @@ const createPieData = (elements) =>{
 export default function PieChart({elements,id,callModal}) {
     const data = createPieData(elements);
     return (
-      <div onClick={()=>callModal(id)}>
+      <div onClick={()=>callModal(id)} style={{width:'50vw', margin:'auto', marginTop:'100px', marginBottom:'100px'}}>
         <Pie
           data={data}
           options={{
@@ -67,6 +67,7 @@ export default function PieChart({elements,id,callModal}) {
             }
           }}
         />
+        <button onClick={()=>callModal(id)}>Update Me</button>
       </div>
     );
 }
